@@ -1,0 +1,37 @@
+# Versão do docker-compose
+version: '3.8'
+
+# Definição dos nossos serviços (contêineres)
+services:
+  # Nome do nosso serviço de banco de dados
+  postgres_db:
+    # Imagem que será usada para criar o contêiner. Usaremos a oficial do Postgres.
+    image: postgres:15-alpine
+
+    # Nome do contêiner em execução (opcional, mas ajuda na identificação)
+    container_name: doutor-agenda-postgres
+
+    # Reinicia o contêiner automaticamente se ele parar
+    restart: always
+
+    # Variáveis de ambiente para configurar o Postgres
+    # IMPORTANTE: Usaremos um arquivo .env para não expor senhas aqui
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+
+    # Mapeamento de portas. A porta 5432 do contêiner será acessível
+    # na porta 5432 da sua máquina local (host).
+    ports:
+      - "5432:5432"
+
+    # Volumes para persistir os dados. Essencial para não perder seus dados
+    # quando o contêiner for recriado.
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# Definição dos volumes nomeados
+volumes:
+  postgres_data:
+    # Deixar em branco faz o Docker gerenciar o volume automaticamente

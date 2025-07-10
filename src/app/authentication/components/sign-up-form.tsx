@@ -22,6 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 
 const registerSchema = z.object({
   name: z.string().trim().min(1, "O nome é obrigatório"),
@@ -46,9 +47,15 @@ const SignUpForm = () => {
     },
   });
 
-  function onSubmit(data: z.infer<typeof registerSchema>) {
-    console.log("Form data submitted:", data);
+  async function onSubmit(values: z.infer<typeof registerSchema>) {
+    await authClient.signUp.email({
+      email: values.email,
+      password: values.password,
+      name: values.name,
+      callbackURL: "/dashboard",
+    })
   }
+
   return (
     <Card>
       <Form {...form}>

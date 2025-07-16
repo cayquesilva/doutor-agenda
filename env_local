@@ -1,11 +1,19 @@
 # Conexão com o banco de dados PostgreSQL usando Docker
+
 DATABASE_URL=postgres://meu_user:minha_senha@local_do_servidor:5432/meu_banco_de_dados
 
 # Credenciais para o banco de dados PostgreSQL no Docker
+
 DB_USER=meu_user
 DB_PASSWORD=minha_senha
 DB_NAME=meu_banco_de_dados
 
 # variável de autenticação better-auth
+
 BETTER_AUTH_SECRET="secret_de_autenticacao"
 BETTER_AUTH_URL=http://localhost:3000
+
+# Autenticação Google
+
+GOOGLE_CLIENT_ID=IDGOOGLE
+GOOGLE_CLIENT_SECRET=CHAVE
